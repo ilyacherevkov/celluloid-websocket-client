@@ -13,9 +13,9 @@ module Celluloid
           port = uri.port || (uri.scheme == "ws" ? 80 : 443)
           @socket = Celluloid::IO::TCPSocket.new(uri.host, port)
           if uri.scheme == "wss"
-	    	    @socket = SSLSocket.new(@socket)
-				    @socket.connect
-				  end
+            @socket = Celluloid::IO::SSLSocket.new(@socket)
+            @socket.connect
+          end
           @client = ::WebSocket::Driver.client(self)
           @handler = handler
 
